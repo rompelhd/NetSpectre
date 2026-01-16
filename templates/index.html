@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>LanInfo</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<h2>LanInfo - Network Hosts</h2>
+
+<table>
+<tr>
+    <th>IP</th>
+    <th>MAC</th>
+    <th>Nombre</th>
+    <th>Última vez visto</th>
+</tr>
+
+{% for ip, mac, name, last_seen in hosts %}
+<tr>
+    <td>{{ ip }}</td>
+    <td>{{ mac or "-" }}</td>
+    <td>
+        <form method="POST" action="/rename">
+            <input type="hidden" name="ip" value="{{ ip }}">
+            <input name="name" value="{{ name or '' }}">
+            <button>Guardar</button>
+        </form>
+    </td>
+    <td>{{ last_seen }}</td>
+</tr>
+{% endfor %}
+</table>
+
+</body>
+</html>
